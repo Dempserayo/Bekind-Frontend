@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bekind | Inicio",
+  title: "Bekind",
   description: "Bekind",
 };
 
