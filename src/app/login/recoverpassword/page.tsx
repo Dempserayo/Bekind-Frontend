@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import RecoverPasswordCard from "@/components/common/card/recover_password";
+
+export const metadata: Metadata = {
+  title: "Bekind | Recuperar Contraseña",
+  description: "Bekind - Recuperar contraseña",
+};
 
 export default function RecoverPassword() {
     return (

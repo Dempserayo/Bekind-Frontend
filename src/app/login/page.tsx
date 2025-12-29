@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import LoginCard from "@/components/common/card/login";
+
+export const metadata: Metadata = {
+  title: "Bekind | Login",
+  description: "Bekind - Inicio de sesión",
+};
 
 export default function Login() {
   return (
