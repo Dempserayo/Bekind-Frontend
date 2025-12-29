@@ -74,7 +74,13 @@ export default function LoginCard() {
                             >
                                 Recuperar contraseña
                             </button>
-                            <button type="submit" className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white rounded-md">Ingresar</button>
+                            <button 
+                                type="button"
+                                onClick={() => router.push('/home')}
+                                className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white rounded-md"
+                            >
+                                Ingresar
+                            </button>
                         </div>
                     </>
                 </div>
