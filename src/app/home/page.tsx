@@ -7,7 +7,7 @@ import CategoriasView from "@/components/common/categorias";
 
 function Content({ isSidebarOpen }: { isSidebarOpen: boolean }) {
   return (
-    <div className={`flex-1 transition-all duration-300 ease-in-out p-20 ${isSidebarOpen ? "ml-0" : "ml-0"}`}>
+    <div className={`flex-1 transition-all duration-300 ease-in-out  ${isSidebarOpen ? "ml-0" : "ml-0"}`}>
       <CategoriasView />
     </div>
   );
@@ -21,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full h-screen bg-white flex flex-col"> 
+    <div className="w-full h-full  flex flex-col"> 
         <Navbar onToggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         <div className="flex flex-row flex-1 overflow-hidden">
           <Sidebar isOpen={isSidebarOpen} />

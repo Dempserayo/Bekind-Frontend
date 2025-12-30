@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { LuSettings, LuUser, LuMenu, LuX } from "react-icons/lu";
+import { LuSettings, LuUser, LuMenu, LuX, LuBell } from "react-icons/lu";
 
 interface NavbarProps {
   onToggleSidebar: () => void;
@@ -17,7 +17,7 @@ export default function Navbar({ onToggleSidebar, isSidebarOpen }: NavbarProps) 
                     <div className="flex flex-row items-center gap-4">
                         <button
                             onClick={onToggleSidebar}
-                            className="text-white hover:text-blue-500 transition-all duration-300 p-2"
+                            className="text-white hover:text-cyan-500 transition-all duration-300 p-2"
                             aria-label="Toggle sidebar"
                         >
                             {isSidebarOpen ? (
@@ -40,10 +40,13 @@ export default function Navbar({ onToggleSidebar, isSidebarOpen }: NavbarProps) 
                 <>
                     {/* Botones de configuracion y usuario */}
                     <div className="flex flex-row justify-center items-center gap-4">
-                        <button className="text-white text-xs hover:text-blue-500 transition-all duration-300">
+                        <button className="text-white text-xs hover:text-cyan-500 transition-all duration-300 cursor-pointer">
+                            <LuBell className="w-4 h-4 " />
+                        </button>
+                        <button className="text-white text-xs hover:text-cyan-500 transition-all duration-300 cursor-pointer">
                             <LuSettings className="w-4 h-4 " />
                         </button>
-                        <button className="bg-white text-xs rounded-full border border-white p-4 hover:bg-blue-500 hover:text-white transition-all duration-300">
+                        <button className="bg-white text-xs rounded-full  p-4 hover:bg-cyan-500 hover:text-white transition-all duration-300 cursor-pointer">
                             <LuUser className="w-4 h-4 " />
                         </button>
                     </div>

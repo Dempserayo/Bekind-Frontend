@@ -36,8 +36,8 @@ export default function Sidebar({ isOpen }: SidebarProps) {
 
   return (
     <div
-      className={`h-screen border-r border-gray-200 shadow-lg shadow-gray-200 bg-white transition-all duration-300 ease-in-out ${
-        isOpen ? "w-full max-w-xs" : "w-0 max-w-0"
+      className={`h-auto border-r border-gray-200 shadow-lg shadow-gray-200 bg-white transition-all duration-300 ease-in-out ${
+        isOpen ? "w-full max-w-md" : "w-0 max-w-0"
       } overflow-hidden`}
     >
       {isOpen && (

@@ -8,7 +8,7 @@ export default function Header({ activeTab }: HeaderProps) {
     return (
         <div className="w-full h-full flex flex-col justify-center items-center gap-4">
             <Image 
-                src="/logo/Union.png" 
+                src="/logo/black/Union.png" 
                 alt="Bekind" 
                 width={100} 
                 height={100} 

@@ -15,7 +15,7 @@ export default function Home() {
             <div className="w-full max-w-4xl h-full bg-white border-l border-gray-200 shadow-lg shadow-white flex flex-col justify-center items-center gap-10">
                 <>
                   <div className="w-full h-auto flex flex-col justify-center items-center gap-4 ">
-                        <Image src="/logo/Union.png" alt="Bekind" width={100} height={100}  className="drop-shadow-xs drop-shadow-black"/>
+                        <Image src="/logo/black/Union.png" alt="Bekind" width={100} height={100}  className="drop-shadow-xs drop-shadow-black"/>
                         <span className="w-full h-auto text-xs text-gray-500 text-center flex flex-col justify-center items-center">
                             <p>¡Empieza a conectar</p>
                             <p>tu comunidad ante buenas acciones!</p>

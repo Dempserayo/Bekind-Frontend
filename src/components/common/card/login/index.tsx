@@ -14,7 +14,7 @@ export default function LoginCard() {
             {/* Bekind logo */}
             <>
                 <div className="w-full h-full flex flex-col justify-center items-center gap-4 ">
-                    <Image src="/logo/Union.png" alt="Bekind" width={100} height={100}  className="drop-shadow-xs drop-shadow-black"/>
+                    <Image src="/logo/black/Union.png" alt="Bekind" width={100} height={100}  className="drop-shadow-xs drop-shadow-black"/>
                     <span className="w-full h-auto text-xs text-gray-500 text-center flex flex-col justify-center items-center">
                         <p>¡Empieza a conectar</p>
                         <p>tu comunidad ante buenas acciones!</p>
