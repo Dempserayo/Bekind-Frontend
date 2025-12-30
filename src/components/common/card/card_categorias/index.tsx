@@ -39,7 +39,7 @@ export default function CardCategorias({ categoria, onEdit, onDelete, onView }: 
                         <span className="w-auto  flex flex-row justify-between items-center gap-2 transition-all duration-300 p-4">
                         <p className="w-full text-xs">
                             {categoria.logoUrl ? (
-                                <img src={categoria.logoUrl} alt={categoria.nombre} className="w-4 h-4 object-contain" />
+                                <img src={categoria.logoUrl} alt={categoria.nombre} className="w-24 h-24 object-contain" />
                             ) : (
                                 <LuPackageSearch className="w-4 h-4" />
                             )}
