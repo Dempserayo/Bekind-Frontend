@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { LuArrowUpDown, LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight, LuFilter, LuX } from "react-icons/lu";
-import NewCategoria, { CategoriaFormData } from "../modals/newCategoria";
+import NewCategoria from "../modals/newCategoria";
 import ViewCategoria from "../modals/viewCategoria";
 import CardCategorias, { CategoriaData } from "../card/card_categorias";
 import { categoriasService, ApiCategoriaResponse } from "@/services/categorias.service";
@@ -323,7 +323,15 @@ export default function Categorias() {
                 </>
                 <>
                   <div className="w-full flex flex-col">
-                    {filteredAndSortedCategorias.length > 0 ? (
+                    {isLoading ? (
+                      <div className="w-full h-24 flex items-center justify-center text-xs text-gray-400 border border-gray-200">
+                        <p>Cargando categorías...</p>
+                      </div>
+                    ) : error ? (
+                      <div className="w-full h-24 flex items-center justify-center text-xs text-red-400 border border-red-200">
+                        <p>{error}</p>
+                      </div>
+                    ) : filteredAndSortedCategorias.length > 0 ? (
                       filteredAndSortedCategorias.map((categoria) => (
                         <CardCategorias
                           key={categoria.id}
