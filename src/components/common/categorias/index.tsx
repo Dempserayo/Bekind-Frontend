@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { LuArrowUpDown, LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight, LuFilter, LuX } from "react-icons/lu";
 import NewCategoria, { CategoriaFormData } from "../modals/newCategoria";
 import CardCategorias, { CategoriaData } from "../card/card_categorias";
+import { categoriasService, ApiCategoriaResponse } from "@/services/categorias.service";
+import { useAuth } from "@/context/AuthContext";
 
 type SortField = 'nombre' | 'fechaCreacion' | 'estado' | null;
 type SortDirection = 'asc' | 'desc';
@@ -16,6 +18,55 @@ export default function Categorias() {
     const [filterEstado, setFilterEstado] = useState<'todos' | 'activo' | 'inactivo'>('todos');
     const [sortField, setSortField] = useState<SortField>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize] = useState(10);
+    const { token, isAuthenticated } = useAuth();
+
+    // Función para adaptar los datos de la API al formato CategoriaData
+    const adaptApiDataToCategoriaData = (apiData: ApiCategoriaResponse): CategoriaData => {
+        return {
+            id: apiData.id || "",
+            nombre: apiData.name || "",
+            descripcion: apiData.description || "",
+            logo: null, // El logo viene como URL desde la API, no como File
+            logoUrl: apiData.iconUrl || apiData.icon || undefined,
+            color: apiData.color || "#000000",
+            activo: apiData.isActive !== undefined ? apiData.isActive : true,
+            fechaCreacion: apiData.createdAt || apiData.createdDate || new Date().toISOString(),
+        };
+    };
+
+    // Cargar categorías desde la API
+    useEffect(() => {
+        // Solo cargar si hay token disponible
+        if (!isAuthenticated || !token) {
+            setIsLoading(false);
+            setError("No estás autenticado. Por favor, inicia sesión.");
+            return;
+        }
+
+        const loadCategorias = async () => {
+            setIsLoading(true);
+            setError(null);
+            try {
+                console.log("Loading categorias, page:", pageNumber, "size:", pageSize);
+                const apiCategorias = await categoriasService.getCategorias(pageNumber, pageSize);
+                console.log("Categorias recibidas:", apiCategorias);
+                const adaptedCategorias = apiCategorias.map(adaptApiDataToCategoriaData);
+                setCategorias(adaptedCategorias);
+            } catch (err) {
+                const errorMessage = err instanceof Error ? err.message : "Error al cargar las categorías";
+                setError(errorMessage);
+                console.error("Error loading categorias:", err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadCategorias();
+    }, [pageNumber, pageSize, isAuthenticated, token]);
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -279,7 +330,37 @@ export default function Categorias() {
                 </>
                 <>
                   <div className="w-full flex flex-col">
-                    {filteredAndSortedCategorias.length > 0 ? (
+                    {isLoading ? (
+                      <div className="w-full h-24 flex items-center justify-center text-xs text-gray-400 border border-gray-200">
+                        <p>Cargando categorías...</p>
+                      </div>
+                    ) : error ? (
+                      <div className="w-full h-24 flex flex-col items-center justify-center gap-2 text-xs text-red-500 border border-red-200 bg-red-50 p-4">
+                        <p>{error}</p>
+                        <button
+                          onClick={() => {
+                            setError(null);
+                            setIsLoading(true);
+                            const loadCategorias = async () => {
+                              try {
+                                const apiCategorias = await categoriasService.getCategorias(pageNumber, pageSize);
+                                const adaptedCategorias = apiCategorias.map(adaptApiDataToCategoriaData);
+                                setCategorias(adaptedCategorias);
+                                setError(null);
+                              } catch (err) {
+                                setError(err instanceof Error ? err.message : "Error al cargar las categorías");
+                              } finally {
+                                setIsLoading(false);
+                              }
+                            };
+                            loadCategorias();
+                          }}
+                          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors text-xs"
+                        >
+                          Reintentar
+                        </button>
+                      </div>
+                    ) : filteredAndSortedCategorias.length > 0 ? (
                       filteredAndSortedCategorias.map((categoria) => (
                         <CardCategorias
                           key={categoria.id}
@@ -318,16 +399,32 @@ export default function Categorias() {
                 </>
                 <>
                   <div className="w-full flex flex-row justify-end items-center gap-2 p-4 text-sm ">
-                    <button className="hover:text-blue-500 cursor-pointer transition-all duration-300">
+                    <button 
+                      onClick={() => setPageNumber(1)}
+                      disabled={pageNumber === 1 || isLoading}
+                      className="hover:text-blue-500 disabled:text-gray-300 disabled:cursor-not-allowed cursor-pointer transition-all duration-300"
+                    >
                       <LuChevronsLeft />
                     </button>
-                    <button className="hover:text-blue-500 cursor-pointer transition-all duration-300">
+                    <button 
+                      onClick={() => setPageNumber(Math.max(1, pageNumber - 1))}
+                      disabled={pageNumber === 1 || isLoading}
+                      className="hover:text-blue-500 disabled:text-gray-300 disabled:cursor-not-allowed cursor-pointer transition-all duration-300"
+                    >
                       <LuChevronLeft />
                     </button>
-                    <button className="hover:text-blue-500 cursor-pointer transition-all duration-300">
+                    <button 
+                      onClick={() => setPageNumber(pageNumber + 1)}
+                      disabled={isLoading || categorias.length < pageSize}
+                      className="hover:text-blue-500 disabled:text-gray-300 disabled:cursor-not-allowed cursor-pointer transition-all duration-300"
+                    >
                       <LuChevronRight />
                     </button>
-                    <button className="hover:text-blue-500 cursor-pointer transition-all duration-300">
+                    <button 
+                      onClick={() => setPageNumber(pageNumber + 1)}
+                      disabled={isLoading || categorias.length < pageSize}
+                      className="hover:text-blue-500 disabled:text-gray-300 disabled:cursor-not-allowed cursor-pointer transition-all duration-300"
+                    >
                       <LuChevronsRight />
                     </button>
                   </div>
