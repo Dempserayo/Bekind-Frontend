@@ -57,7 +57,7 @@ export default function CardCategorias({ categoria, onEdit, onDelete, onView }: 
                     {/* Descripcion */}
                     <>
                         <span className="w-full flex flex-row justify-between items-center gap-2 transition-all duration-300 p-4">
-                        <p className="w-full text-xs truncate" title={categoria.descripcion}>
+                        <p className="w-20 text-xs truncate overflow-hidden" title={categoria.descripcion}>
                             {categoria.descripcion}
                         </p>
                         </span>
