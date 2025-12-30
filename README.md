@@ -35,32 +35,11 @@ Tecnologias usadas:
 
 Entre lo que pude, me hubiera gustado terminar antes del tiempo limite el responsive en dispositivos mobiles. ( Recordatorio a un futuro, independientemente del resultado, hacer esta modificacion al proyecto )
 
-## API - Creación de Categorías
-
-### Endpoint: POST `/api/v1/actions/admin-add`
-
-**Decisión de implementación:**
-
-El endpoint de creación de categorías (`POST /api/v1/actions/admin-add`) no tenía documentación del payload exacto. Basándome en la estructura de respuesta del endpoint de listado (`GET /api/v1/actions/admin-list`), inferí el siguiente payload:
-
-**Payload implementado:**
-- `name` (string, requerido): Nombre de la categoría
-- `description` (string, opcional): Descripción de la categoría
-- `color` (string, opcional): Color en formato hexadecimal (ej: "#3b82f6")
-- `isActive` (boolean, opcional): Estado activo/inactivo (default: true)
-- `icon` (File, opcional): Archivo de imagen para el icono
-
-**Manejo de archivos:**
-
-La implementación soporta el envío de archivos mediante `FormData` cuando se proporciona un icono. Si no hay archivo, se envía como JSON. El componente convierte los colores de formato Tailwind (ej: "blue-500") a hexadecimal antes de enviarlos.
-
-**Validaciones implementadas:**
-- Campos requeridos: nombre, descripción, logo, color
-- Feedback visual de éxito/error
-- Refresco automático del listado después de crear exitosamente
-- Manejo de errores con mensajes descriptivos
-
-**Nota:** Si el endpoint requiere un formato diferente o campos adicionales, será necesario ajustar el payload en `src/services/categorias.service.ts` (método `createCategoria`).
+TAREAS FALTANTES: 
+- Editar una Categoria ya creada
+- Fixear Filtro en el Paginado
+- QA Pruebas Unitarias
+- Responsive de 768px ( Tablets ) para abajo ( Celulares )
 
 ## GALERIA DEL PROYECTO
 
@@ -75,7 +54,8 @@ La implementación soporta el envío de archivos mediante `FormData` cuando se p
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f34f728c-0c9d-4460-b4ab-0441013ef3cf" />
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/760bcb73-1b35-4f14-8be3-6f7c085682cd" />
-<img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/5cc8b63a-5d29-4d4b-80d8-4e2b03061b72" />
+<img width="1901" height="1078" alt="image" src="https://github.com/user-attachments/assets/5be0b003-bd02-4933-ac8d-c0a6b0e462df" />
+
 
 
 
