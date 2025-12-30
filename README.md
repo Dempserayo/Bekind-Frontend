@@ -35,6 +35,12 @@ Tecnologias usadas:
 
 Entre lo que pude, me hubiera gustado terminar antes del tiempo limite el responsive en dispositivos mobiles. ( Recordatorio a un futuro, independientemente del resultado, hacer esta modificacion al proyecto )
 
+TAREAS FALTANTES: 
+- Editar una Categoria ya creada
+- Fixear Filtro en el Paginado
+- QA Pruebas Unitarias
+- Responsive de 768px ( Tablets ) para abajo ( Celulares )
+
 ## GALERIA DEL PROYECTO
 
 
@@ -48,7 +54,8 @@ Entre lo que pude, me hubiera gustado terminar antes del tiempo limite el respon
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f34f728c-0c9d-4460-b4ab-0441013ef3cf" />
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/760bcb73-1b35-4f14-8be3-6f7c085682cd" />
-<img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/5cc8b63a-5d29-4d4b-80d8-4e2b03061b72" />
+<img width="1901" height="1078" alt="image" src="https://github.com/user-attachments/assets/5be0b003-bd02-4933-ac8d-c0a6b0e462df" />
+
 
 
 
