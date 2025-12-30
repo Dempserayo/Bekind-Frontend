@@ -8,6 +8,9 @@ Luego de esto, podremos usar alguno de los siguientes comandos, siendo el mas co
 
 
 ```bash
+https://bekind-frontend.vercel.app/
+```
+```bash
 npm run dev
 # or
 yarn dev
@@ -30,6 +33,7 @@ Tecnologias usadas:
 - TS
 - TailwindCSS
 
+Entre lo que pude, me hubiera gustado terminar antes del tiempo limite el responsive en dispositivos mobiles. ( Recordatorio a un futuro, independientemente del resultado, hacer esta modificacion al proyecto )
 
 ## GALERIA DEL PROYECTO
 
@@ -43,7 +47,7 @@ Tecnologias usadas:
 <img width="1913" height="1077" alt="image" src="https://github.com/user-attachments/assets/6930ae9e-9ea6-4b88-a9f1-6e1959cb793d" />
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/f34f728c-0c9d-4460-b4ab-0441013ef3cf" />
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d5cf4fd0-c2ba-40b9-a844-bf2da88ceab6" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/760bcb73-1b35-4f14-8be3-6f7c085682cd" />
 <img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/5cc8b63a-5d29-4d4b-80d8-4e2b03061b72" />
 
 
