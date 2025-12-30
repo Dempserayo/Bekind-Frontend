@@ -3,12 +3,21 @@
 import { useState } from "react";
 import { LuX, LuUpload } from "react-icons/lu";
 
+export interface CategoriaFormData {
+  nombre: string;
+  descripcion: string;
+  logo: File | null;
+  color: string;
+  activo: boolean;
+}
+
 interface NewCategoriaProps {
   isOpen: boolean;
   onClose: () => void;
+  onCreate: (data: CategoriaFormData) => void;
 }
 
-export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
+export default function NewCategoria({ isOpen, onClose, onCreate }: NewCategoriaProps) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [logo, setLogo] = useState<File | null>(null);
@@ -29,8 +38,15 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí iría la lógica para crear la categoría
-    console.log({ nombre, descripcion, logo, color, activo });
+    // Crear la categoría con los datos del formulario
+    onCreate({ nombre, descripcion, logo, color, activo });
+    // Reset form
+    setNombre("");
+    setDescripcion("");
+    setLogo(null);
+    setLogoFileName("");
+    setColor("");
+    setActivo(true);
     onClose();
   };
 
@@ -136,15 +152,53 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
                     <label className="block text-sm font-medium">
                     Color <span className="text-red-500">*</span>
                     </label>
-                    <input
-                    type="text"
-                    value={color}
-                    onChange={(e) => setColor(e.target.value)}
-                    placeholder="Registra color codigo HEX"
-                    pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
-                    className="w-full px-4 py-2 text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent p-4"
-                    required
-                    />
+                    <div className="flex flex-row ">
+                        <button
+                            type="button"
+                            onClick={() => setColor("blue-500")}
+                            className={`w-12 h-12  bg-blue-500 border-2 transition-all ${
+                                color === "blue-500" 
+                                    ? "border-gray-900 ring-2 ring-blue-300 scale-110" 
+                                    : "border-gray-300 hover:border-gray-400"
+                            }`}
+                            aria-label="Seleccionar azul"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setColor("red-500")}
+                            className={`w-12 h-12  bg-red-500 border-2 transition-all ${
+                                color === "red-500" 
+                                    ? "border-gray-900 ring-2 ring-red-300 scale-110" 
+                                    : "border-gray-300 hover:border-gray-400"
+                            }`}
+                            aria-label="Seleccionar rojo"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setColor("cyan-500")}
+                            className={`w-12 h-12  bg-cyan-500 border-2 transition-all ${
+                                color === "cyan-500" 
+                                    ? "border-gray-900 ring-2 ring-cyan-300 scale-110" 
+                                    : "border-gray-300 hover:border-gray-400"
+                            }`}
+                            aria-label="Seleccionar cyan"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setColor("orange-500")}
+                            className={`w-12 h-12  bg-orange-500 border-2 transition-all ${
+                                color === "orange-500" 
+                                    ? "border-gray-900 ring-2 ring-orange-300 scale-110" 
+                                    : "border-gray-300 hover:border-gray-400"
+                            }`}
+                            aria-label="Seleccionar naranja"
+                        />
+                    </div>
+                    {color && (
+                        <p className="text-xs text-gray-500 mt-1">
+                            Color seleccionado: <span className="font-medium">{color}</span>
+                        </p>
+                    )}
                 </div>
             </div>
 

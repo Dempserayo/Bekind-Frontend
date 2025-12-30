@@ -6,9 +6,10 @@ import { LuSettings, LuUser, LuMenu, LuX, LuBell } from "react-icons/lu";
 interface NavbarProps {
   onToggleSidebar: () => void;
   isSidebarOpen: boolean;
+  onToggleUserSidebar: () => void;
 }
 
-export default function Navbar({ onToggleSidebar, isSidebarOpen }: NavbarProps) {
+export default function Navbar({ onToggleSidebar, isSidebarOpen, onToggleUserSidebar }: NavbarProps) {
     return (
         <div className="w-full h-24 bg-[#1E1B4D] flex justify-between items-center p-10">
             <div className="w-full flex flex-row justify-between items-center">
@@ -46,7 +47,11 @@ export default function Navbar({ onToggleSidebar, isSidebarOpen }: NavbarProps) 
                         <button className="text-white text-xs hover:text-cyan-500 transition-all duration-300 cursor-pointer">
                             <LuSettings className="w-4 h-4 " />
                         </button>
-                        <button className="bg-white text-xs rounded-full  p-4 hover:bg-cyan-500 hover:text-white transition-all duration-300 cursor-pointer">
+                        <button 
+                            onClick={onToggleUserSidebar}
+                            className="bg-white text-xs rounded-full  p-4 hover:bg-cyan-500 hover:text-white transition-all duration-300 cursor-pointer"
+                            aria-label="Toggle user sidebar"
+                        >
                             <LuUser className="w-4 h-4 " />
                         </button>
                     </div>
