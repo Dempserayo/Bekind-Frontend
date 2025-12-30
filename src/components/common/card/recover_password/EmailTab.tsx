@@ -18,7 +18,7 @@ export default function EmailTab({ onNext }: EmailTabProps) {
                         <input 
                             type="email" 
                             placeholder="Ingresar correo" 
-                            className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
+                            className="w-full pl-10 pr-3 py-3 border border-gray-300 text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
                         />
                     </div>
                 </span>
@@ -29,7 +29,7 @@ export default function EmailTab({ onNext }: EmailTabProps) {
                 <button 
                     type="button"
                     onClick={onNext}
-                    className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white rounded-md"
+                    className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white"
                 >
                     Enviar instrucciones
                 </button>

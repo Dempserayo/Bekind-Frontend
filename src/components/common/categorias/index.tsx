@@ -17,7 +17,7 @@ export default function Categorias() {
     };
 
     return (
-        <div className="w-full h-auto flex flex-col p-10 gap-4 bg-gray-200/50">
+        <div className="w-full h-auto flex flex-col p-10 gap-4 bg-white">
             <>
               {/* Header */}
               <div className="w-full h-40 flex flex-col p-10 ">
@@ -53,7 +53,7 @@ export default function Categorias() {
             </>
             <>
               {/* Body */}
-              <div className="w-full h-screen flex flex-col gap-4 p-10 ">
+              <div className="w-full h-auto flex flex-col gap-4 p-10 ">
                 <>
                   <div className="w-full flex flex-row justify-between items-start  text-xs ">
                       <span className="w-full flex flex-row justify-between items-center gap-2 transition-all duration-300 cursor-pointer border-t border-b border-l border-gray-200 p-4">
@@ -107,7 +107,7 @@ export default function Categorias() {
             </>
             <>
               {/* Footer */}
-              <div className="w-full h-auto flex flex-row justify-between p-10 bg-gray-100">
+              <div className="w-full h-auto flex flex-row justify-between p-10 ">
                 <>
                   <div className="w-full flex flex-row justify-start items-center gap-2 p-4 text-xs">
                     <p>Resultados por pagina</p>

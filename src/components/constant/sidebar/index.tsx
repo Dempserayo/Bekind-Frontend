@@ -37,7 +37,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
   return (
     <div
       className={`h-auto border-r border-gray-200 shadow-lg shadow-gray-200 bg-white transition-all duration-300 ease-in-out ${
-        isOpen ? "w-full max-w-md" : "w-0 max-w-0"
+        isOpen ? "w-full max-w-xs" : "w-0 max-w-0"
       } overflow-hidden`}
     >
       {isOpen && (
@@ -65,14 +65,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                               setSelectedOption(option.label);
                               setIsAlertOpen(true);
                             }}
-                            className={`relative flex items-center gap-3 p-3 rounded-md transition-all duration-300 text-xs ${
+                            className={`relative flex items-center gap-3 p-3  transition-all duration-300 text-xs ${
                               isActive 
                                 ? "bg-cyan-50 text-gray-800" 
                                 : "text-gray-700 hover:bg-cyan-500 hover:text-white"
                             }`}
                           >
                             {isActive && (
-                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 rounded-r"></div>
+                              <div className="absolute left-0 top-0 bottom-0 w-1 bg-cyan-500 "></div>
                             )}
                             <Icon className="w-4 h-4" />
                             <span>{option.label}</span>

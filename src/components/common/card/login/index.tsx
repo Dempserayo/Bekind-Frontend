@@ -10,7 +10,7 @@ export default function LoginCard() {
     const router = useRouter();
 
     return (
-        <div className="w-full max-w-xl h-[500px] border border-gray-200 bg-white/50 rounded-2xl p-10 shadow-lg shadow-white flex flex-col justify-between items-center">
+        <div className="w-full max-w-xl h-[500px] border border-gray-200 bg-white/50 p-10 shadow-lg shadow-white flex flex-col justify-between items-center">
             {/* Bekind logo */}
             <>
                 <div className="w-full h-full flex flex-col justify-center items-center gap-4 ">
@@ -35,7 +35,7 @@ export default function LoginCard() {
                                     <input 
                                         type="text" 
                                         placeholder="Ingresar correo" 
-                                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
+                                        className="w-full pl-10 pr-3 py-3 border border-gray-300  text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
                                     />
                                 </div>
                             </span>
@@ -59,7 +59,7 @@ export default function LoginCard() {
                                     <input 
                                         type={showPassword ? "text" : "password"} 
                                         placeholder="Ingresa tu contraseña" 
-                                        className="w-full pl-10 pr-10 py-3 bg-transparent border border-gray-300 rounded-md text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
+                                        className="w-full pl-10 pr-10 py-3 bg-transparent border border-gray-300  text-xs focus:outline-none focus:ring-0 focus:border-blue-500" 
                                     />
                                 </div>
                             </span>
@@ -77,7 +77,7 @@ export default function LoginCard() {
                             <button 
                                 type="button"
                                 onClick={() => router.push('/home')}
-                                className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white rounded-md"
+                                className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white "
                             >
                                 Ingresar
                             </button>

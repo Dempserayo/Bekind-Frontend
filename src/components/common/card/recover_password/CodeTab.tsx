@@ -33,7 +33,7 @@ export default function CodeTab({
                                 onChange={(e) => onOtpChange(index, e.target.value)}
                                 onKeyDown={(e) => onOtpKeyDown(index, e)}
                                 onPaste={onOtpPaste}
-                                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                                className="w-12 h-12 text-center text-lg font-semibold border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                             />
                         ))}
                     </div>
@@ -44,7 +44,7 @@ export default function CodeTab({
                 <BackButton onClick={onBack} />
                 <button 
                     type="submit" 
-                    className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white rounded-md"
+                    className="w-full max-w-xs p-2 bg-blue-500 transition-all duration-300 hover:bg-blue-500 hover:animate-pulse cursor-pointer text-white"
                 >
                     Verificar código
                 </button>

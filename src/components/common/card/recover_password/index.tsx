@@ -65,7 +65,7 @@ export default function RecoverPasswordCard() {
     };
 
     return (
-        <div className="w-full max-w-xl h-[500px] border border-gray-200 bg-white/50 rounded-2xl p-10 shadow-lg shadow-white flex flex-col justify-between items-center">
+        <div className="w-full max-w-xl h-[500px] border border-gray-200 bg-white/50 p-10 shadow-lg shadow-white flex flex-col justify-between items-center">
             <Header activeTab={activeTab} />
             
             {activeTab === 'email' ? (

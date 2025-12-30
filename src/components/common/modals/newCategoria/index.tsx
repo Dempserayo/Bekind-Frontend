@@ -49,17 +49,17 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
 
   return (
     <div className=" bg-gray-900/50 backdrop-blur-sm  fixed inset-0 z-50 flex items-center justify-center">
-      <div className="w-full h-auto max-w-4xl bg-white rounded-md shadow-xl shadow-white overflow-y-auto px-10">
+      <div className="w-full h-auto max-w-4xl bg-white  shadow-xl shadow-white overflow-y-auto px-10">
         {/* Header */}
         <>
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">Crear categoria</h2>
+            <h2 className="text-sm font-semibold uppercase">Crear categoria</h2>
             <button
                 onClick={onClose}
                 className="p-1 hover:bg-gray-100 rounded-full transition-colors"
                 aria-label="Cerrar"
             >
-                <LuX className="w-5 h-5 text-gray-500" />
+                <LuX className="w-4 h-4" />
             </button>
             </div>
         </>
@@ -67,8 +67,8 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
         <>
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Nombre de la categoria */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="w-full h-auto flex flex-col gap-4">
+                <label className="block text-sm font-medium">
                 Nombre de la categoria <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -76,14 +76,14 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Escribe el nombre de la buena acción"
-                className="w-full h-10border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full h-10 text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent p-4"
                 required
                 />
             </div>
 
             {/* Descripción */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="w-full h-auto flex flex-col gap-4">
+                <label className="block text-sm font-medium ">
                 Descripción de la buena acción <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -96,7 +96,7 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
                     }}
                     placeholder="Agregar descripción"
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                    className="w-full px-4 py-2 text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y p-4"
                     required
                 />
                 <div className="absolute bottom-3 right-3 text-xs text-gray-500">
@@ -105,45 +105,47 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
                 </div>
             </div>
 
-            {/* Logo */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                Logo <span className="text-red-500">*</span>
-                </label>
-                <div className="relative">
-                <input
-                    type="file"
-                    id="logo-upload"
-                    onChange={handleFileChange}
-                    accept="image/*"
-                    className="hidden"
-                />
-                <label
-                    htmlFor="logo-upload"
-                    className="flex items-center justify-between w-full px-4 py-2 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
-                >
-                    <span className="text-gray-500">
-                    {logoFileName || "Carga archivo"}
-                    </span>
-                    <LuUpload className="w-5 h-5 text-gray-400" />
-                </label>
+            <div className="w-full h-auto flex flex-row gap-4">
+                {/* Logo */}
+                <div className="w-full h-auto flex flex-col gap-2">
+                    <label className="block text-sm font-medium">
+                    Logo <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                    <input
+                        type="file"
+                        id="logo-upload"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="hidden"
+                    />
+                    <label
+                        htmlFor="logo-upload"
+                        className="flex items-center justify-between w-full px-4 py-2 text-xs border border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors"
+                    >
+                        <span>
+                            {logoFileName || "Cargar archivo"}
+                        </span>
+                        <LuUpload className="w-3 h-3" />
+                    </label>
+                    </div>
                 </div>
-            </div>
 
-            {/* Color */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                Color <span className="text-red-500">*</span>
-                </label>
-                <input
-                type="text"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                placeholder="Registra color codigo HEX"
-                pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-                />
+                {/* Color */}
+                <div className="w-full h-auto flex flex-col gap-2">
+                    <label className="block text-sm font-medium">
+                    Color <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                    type="text"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    placeholder="Registra color codigo HEX"
+                    pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+                    className="w-full px-4 py-2 text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent p-4"
+                    required
+                    />
+                </div>
             </div>
 
             {/* Activo Toggle */}
@@ -167,17 +169,17 @@ export default function NewCategoria({ isOpen, onClose }: NewCategoriaProps) {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
+            <div className="flex justify-end gap-4 border-gray-200">
                 <button
                 type="button"
                 onClick={handleCancel}
-                className="px-6 py-2 border border-blue-600 text-blue-600 bg-white rounded-md hover:bg-blue-50 transition-colors font-medium"
+                className="px-6 py-2 border border-blue-600 text-blue-600 bg-white hover:bg-blue-50 transition-colors font-medium text-xs"
                 >
                 Cancelar
                 </button>
                 <button
                 type="submit"
-                className={`px-6 py-2 rounded-md transition-colors font-medium ${
+                className={`px-6 py-2 transition-colors font-medium text-xs ${
                     nombre && descripcion && logo && color
                     ? "bg-blue-600 text-white hover:bg-blue-700"
                     : "bg-gray-300 text-gray-600 cursor-not-allowed"
