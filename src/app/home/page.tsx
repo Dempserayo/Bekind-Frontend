@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/constant/navbar";
 import Sidebar from "@/components/constant/sidebar";
 import UserSidebar from "@/components/constant/userSidebar";
 import CategoriasView from "@/components/common/categorias";
+import { useAuth } from "@/context/AuthContext";
 
 function Content({ isSidebarOpen }: { isSidebarOpen: boolean }) {
   return (
@@ -17,6 +19,14 @@ function Content({ isSidebarOpen }: { isSidebarOpen: boolean }) {
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isUserSidebarOpen, setIsUserSidebarOpen] = useState(false);
+  const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -25,6 +35,20 @@ export default function Home() {
   const toggleUserSidebar = () => {
     setIsUserSidebarOpen(!isUserSidebarOpen);
   };
+
+  // Mostrar loading mientras se verifica la autenticación
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-gray-500">Cargando...</p>
+      </div>
+    );
+  }
+
+  // No mostrar nada si no está autenticado (el useEffect redirigirá)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="w-full h-full  flex flex-col"> 

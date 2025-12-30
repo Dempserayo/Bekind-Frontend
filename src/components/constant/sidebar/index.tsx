@@ -5,8 +5,8 @@ import Image from "next/image";
 import { LuHouse, LuTrendingUp, LuUsers, LuDollarSign, LuShoppingCart, LuAward, LuCopyCheck , LuShapes, LuLogOut } from "react-icons/lu";
 
 import { IconType } from "react-icons";
-import Link from "next/link";
 import ViewAlert from "@/components/common/modals/viewAlert";
+import { useAuth } from "@/context/AuthContext";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -33,6 +33,11 @@ export default function Sidebar({ isOpen }: SidebarProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div
@@ -84,11 +89,14 @@ export default function Sidebar({ isOpen }: SidebarProps) {
             </>       
             <>
               {/* Cerrar sesión */}
-              <div className="h-autop-4 border-t border-gray-200">
-                <Link href="/login" className="flex items-center justify-start  gap-4 p-10">
+              <div className="h-auto p-4 border-t border-gray-200">
+                <button 
+                  onClick={handleLogout}
+                  className="flex items-center justify-start gap-4 p-6 w-full text-gray-700 hover:text-red-600 transition-colors duration-300"
+                >
                   <LuLogOut className="w-5 h-5" />
                   <span className="text-xs">Cerrar sesión</span>
-                </Link>
+                </button>
               </div>
             </>   
         </div>
