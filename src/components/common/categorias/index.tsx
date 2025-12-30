@@ -67,27 +67,21 @@ export default function Categorias() {
         setIsModalOpen(false);
     };
 
-    const handleCreateCategoria = (formData: CategoriaFormData) => {
-        // Generar URL para la imagen del logo
-        let logoUrl = "";
-        if (formData.logo) {
-            logoUrl = URL.createObjectURL(formData.logo);
+    const handleCreateCategoria = async () => {
+        // La creación ya se hizo en el modal, aquí solo refrescamos el listado
+        // Recargar las categorías desde la API para obtener los datos actualizados
+        try {
+            setIsLoading(true);
+            setError(null);
+            const apiCategorias = await categoriasService.getCategorias(pageNumber, pageSize);
+            const adaptedCategorias = apiCategorias.map(adaptApiDataToCategoriaData);
+            setCategorias(adaptedCategorias);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error al refrescar las categorías");
+            console.error("Error refreshing categorias:", err);
+        } finally {
+            setIsLoading(false);
         }
-
-        // Crear nueva categoría con ID único y fecha de creación
-        const nuevaCategoria: CategoriaData = {
-            id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-            nombre: formData.nombre,
-            descripcion: formData.descripcion,
-            logo: formData.logo,
-            logoUrl: logoUrl,
-            color: formData.color,
-            activo: formData.activo,
-            fechaCreacion: new Date().toISOString(),
-        };
-
-        // Agregar la nueva categoría al estado
-        setCategorias([...categorias, nuevaCategoria]);
     };
 
     const handleEditCategoria = (id: string) => {

@@ -35,6 +35,33 @@ Tecnologias usadas:
 
 Entre lo que pude, me hubiera gustado terminar antes del tiempo limite el responsive en dispositivos mobiles. ( Recordatorio a un futuro, independientemente del resultado, hacer esta modificacion al proyecto )
 
+## API - Creación de Categorías
+
+### Endpoint: POST `/api/v1/actions/admin-add`
+
+**Decisión de implementación:**
+
+El endpoint de creación de categorías (`POST /api/v1/actions/admin-add`) no tenía documentación del payload exacto. Basándome en la estructura de respuesta del endpoint de listado (`GET /api/v1/actions/admin-list`), inferí el siguiente payload:
+
+**Payload implementado:**
+- `name` (string, requerido): Nombre de la categoría
+- `description` (string, opcional): Descripción de la categoría
+- `color` (string, opcional): Color en formato hexadecimal (ej: "#3b82f6")
+- `isActive` (boolean, opcional): Estado activo/inactivo (default: true)
+- `icon` (File, opcional): Archivo de imagen para el icono
+
+**Manejo de archivos:**
+
+La implementación soporta el envío de archivos mediante `FormData` cuando se proporciona un icono. Si no hay archivo, se envía como JSON. El componente convierte los colores de formato Tailwind (ej: "blue-500") a hexadecimal antes de enviarlos.
+
+**Validaciones implementadas:**
+- Campos requeridos: nombre, descripción, logo, color
+- Feedback visual de éxito/error
+- Refresco automático del listado después de crear exitosamente
+- Manejo de errores con mensajes descriptivos
+
+**Nota:** Si el endpoint requiere un formato diferente o campos adicionales, será necesario ajustar el payload en `src/services/categorias.service.ts` (método `createCategoria`).
+
 ## GALERIA DEL PROYECTO
 
 

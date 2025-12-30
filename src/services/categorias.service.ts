@@ -31,6 +31,15 @@ export interface ApiCategoriasListResponse {
   [key: string]: any;
 }
 
+export interface CreateCategoriaPayload {
+  name: string;
+  description?: string;
+  color?: string;
+  isActive?: boolean;
+  status?: number; // Campo requerido por el backend (1 = activo, 0 = inactivo)
+  icon?: File | null;
+}
+
 const API_BASE_URL = "https://dev.api.bekindnetwork.com/api/v1";
 // Usar API route de Next.js como proxy para evitar problemas de CORS
 const USE_PROXY = true;
@@ -115,6 +124,120 @@ export const categoriasService = {
         throw error;
       }
       throw new Error("Error desconocido al obtener las categorías");
+    }
+  },
+
+  createCategoria: async (
+    payload: CreateCategoriaPayload
+  ): Promise<ApiCategoriaResponse> => {
+    try {
+      const token = getAuthToken();
+      
+      if (!token) {
+        throw new Error("No hay token de autenticación disponible. Por favor, inicia sesión.");
+      }
+
+      // Usar proxy si está habilitado, sino usar la URL directa
+      const url = USE_PROXY 
+        ? `${PROXY_URL}`
+        : `${API_BASE_URL}/actions/admin-add`;
+
+      console.log("Creating categoria at:", url);
+
+      // Si hay un archivo, usar FormData, sino usar JSON
+      let body: FormData | string;
+      let headers: HeadersInit;
+
+      // Mapear isActive a status (1 = activo, 0 = inactivo)
+      const status = payload.status !== undefined 
+        ? payload.status 
+        : (payload.isActive !== undefined ? (payload.isActive ? 1 : 0) : 1);
+
+      if (payload.icon) {
+        // Crear FormData para enviar archivo
+        const formData = new FormData();
+        formData.append("name", payload.name);
+        if (payload.description) {
+          formData.append("description", payload.description);
+        }
+        if (payload.color) {
+          formData.append("color", payload.color);
+        }
+        // El backend requiere status como Integer, no isActive
+        formData.append("status", status.toString());
+        formData.append("icon", payload.icon);
+        
+        body = formData;
+        // No establecer Content-Type cuando se usa FormData, el navegador lo hace automáticamente
+        headers = {
+          Authorization: `Bearer ${token}`,
+        };
+      } else {
+        // Usar JSON si no hay archivo
+        body = JSON.stringify({
+          name: payload.name,
+          description: payload.description || "",
+          color: payload.color || "#000000",
+          status: status, // Campo requerido por el backend
+        });
+        headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+      }
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers,
+        body,
+        mode: USE_PROXY ? "same-origin" : "cors",
+      });
+
+      console.log("Create response status:", response.status);
+      console.log("Create response ok:", response.ok);
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("No autorizado. Por favor, inicia sesión nuevamente.");
+        }
+        if (response.status === 400) {
+          const errorData = await response.json().catch(() => ({ message: "Datos inválidos" }));
+          throw new Error(errorData.message || errorData.error || "Datos inválidos. Verifica los campos requeridos.");
+        }
+        if (response.status === 0) {
+          throw new Error("Error de conexión. Verifica tu conexión a internet o si la API está disponible.");
+        }
+        let errorData;
+        try {
+          const errorText = await response.text();
+          try {
+            errorData = JSON.parse(errorText);
+          } catch {
+            errorData = errorText;
+          }
+        } catch {
+          errorData = `Error ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(
+          typeof errorData === 'string' 
+            ? errorData 
+            : errorData.message || errorData.error || `Error al crear la categoría (${response.status})`
+        );
+      }
+
+      const data: ApiCategoriaResponse = await response.json();
+      console.log("Create API Response:", data);
+      
+      return data;
+    } catch (error) {
+      console.error("Error en createCategoria:", error);
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error("Error de conexión. No se pudo conectar con el servidor. Verifica tu conexión a internet.");
+      }
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error("Error desconocido al crear la categoría");
     }
   },
 };

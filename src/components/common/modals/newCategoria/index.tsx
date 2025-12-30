@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { LuX, LuUpload } from "react-icons/lu";
+import { LuX, LuUpload, LuCheck } from "react-icons/lu";
+import { categoriasService } from "@/services/categorias.service";
 
 export interface CategoriaFormData {
   nombre: string;
@@ -24,6 +25,9 @@ export default function NewCategoria({ isOpen, onClose, onCreate }: NewCategoria
   const [color, setColor] = useState("");
   const [activo, setActivo] = useState(true);
   const [logoFileName, setLogoFileName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const maxDescripcionLength = 200;
   const descripcionLength = descripcion.length;
@@ -36,28 +40,68 @@ export default function NewCategoria({ isOpen, onClose, onCreate }: NewCategoria
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Crear la categoría con los datos del formulario
-    onCreate({ nombre, descripcion, logo, color, activo });
-    // Reset form
+  const resetForm = () => {
     setNombre("");
     setDescripcion("");
     setLogo(null);
     setLogoFileName("");
     setColor("");
     setActivo(true);
-    onClose();
+    setError(null);
+    setSuccess(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      // Convertir el color de formato Tailwind a hex si es necesario
+      // Los colores vienen como "blue-500", necesitamos convertirlos a hex
+      let colorHex = color;
+      if (color && !color.startsWith("#")) {
+        // Mapeo de colores Tailwind a hex
+        const colorMap: { [key: string]: string } = {
+          "blue-500": "#3b82f6",
+          "red-500": "#ef4444",
+          "cyan-500": "#06b6d4",
+          "orange-500": "#f97316",
+        };
+        colorHex = colorMap[color] || "#000000";
+      }
+
+      // Llamar al servicio para crear la categoría
+      await categoriasService.createCategoria({
+        name: nombre,
+        description: descripcion,
+        color: colorHex,
+        isActive: activo,
+        icon: logo,
+      });
+
+      // Si la creación fue exitosa
+      setSuccess(true);
+      
+      // Llamar al callback para refrescar el listado
+      onCreate({ nombre, descripcion, logo, color, activo });
+
+      // Cerrar el modal después de un breve delay para mostrar el mensaje de éxito
+      setTimeout(() => {
+        resetForm();
+        onClose();
+      }, 1500);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error al crear la categoría");
+      console.error("Error creating categoria:", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCancel = () => {
-    // Reset form
-    setNombre("");
-    setDescripcion("");
-    setLogo(null);
-    setLogoFileName("");
-    setColor("");
-    setActivo(true);
+    resetForm();
     onClose();
   };
 
@@ -82,6 +126,25 @@ export default function NewCategoria({ isOpen, onClose, onCreate }: NewCategoria
         {/* Form */}
         <>
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            {/* Mensaje de éxito */}
+            {success && (
+              <div className="w-full p-4 bg-green-50 border border-green-200 rounded-md flex items-center gap-3">
+                <LuCheck className="w-5 h-5 text-green-600 shrink-0" />
+                <p className="text-sm text-green-800">Categoría creada exitosamente</p>
+              </div>
+            )}
+            
+            {/* Mensaje de error */}
+            {error && (
+              <div className="w-full p-4 bg-red-50 border border-red-200 rounded-md flex items-start gap-3">
+                <div className="w-5 h-5 text-red-600 shrink-0 mt-0.5 flex items-center justify-center font-bold">!</div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-red-800">Error al crear la categoría</p>
+                  <p className="text-xs text-red-600 mt-1">{error}</p>
+                </div>
+              </div>
+            )}
+
             {/* Nombre de la categoria */}
             <div className="w-full h-auto flex flex-col gap-4">
                 <label className="block text-sm font-medium">
@@ -234,13 +297,13 @@ export default function NewCategoria({ isOpen, onClose, onCreate }: NewCategoria
                 <button
                 type="submit"
                 className={`px-6 py-2 transition-colors font-medium text-xs ${
-                    nombre && descripcion && logo && color
+                    nombre && descripcion && logo && color && !isLoading
                     ? "bg-blue-600 text-white hover:bg-blue-700"
                     : "bg-gray-300 text-gray-600 cursor-not-allowed"
                 }`}
-                disabled={!nombre || !descripcion || !logo || !color}
+                disabled={!nombre || !descripcion || !logo || !color || isLoading}
                 >
-                Crear
+                {isLoading ? "Creando..." : "Crear"}
                 </button>
             </div>
             </form>
