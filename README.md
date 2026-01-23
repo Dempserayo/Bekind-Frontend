@@ -26,6 +26,10 @@ Para agilizar este proceso decidi usar Tailwind, herramienta que uso mucho en ca
 
 Asi como modifique algunas cosas del diseño, tambien agregue pantallas nuevas y extras a esta demo. Independientemente de ser aceptada o no la prueba tecnica, decidi darle mi toque personal y agregar lo que consideraba un plus a lo que se nos pidio.
 
+Usuario de Prueba:
+ - a.berrio@yopmail.com
+ - AmuFK8G4Bh64Q1uX+IxQhw==
+
 Tecnologias usadas:
 
 - React
